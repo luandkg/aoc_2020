@@ -272,17 +272,16 @@ def solucao_parte_extra(linhas):
 
         valido_geral = False
 
-        if(is_valido):
-            if(is_valido_dados):
-                valido_geral=True 
+        if(is_valido and is_valido_dados):
+            valido_geral=True 
 
 
         print(">> Válido : " + SimOuNao(valido_geral))
         print(">> Válido P1 : " + QualFalhouP1(contagem_ecl,contagem_pid,contagem_eyr,contagem_hcl,contagem_byr,contagem_iyr,contagem_hgt,contagem_cid))
         print(">> Válido P2 : " + QualFalhouP2(valido_contagem_ecl,valido_contagem_pid,valido_contagem_eyr,valido_contagem_hcl,valido_contagem_byr,valido_contagem_iyr,valido_contagem_hgt))
 
-        print(">> Soma P1 : " + str(SomaP1(contagem_ecl,contagem_pid,contagem_eyr,contagem_hcl,contagem_byr,contagem_iyr,contagem_hgt,contagem_cid)))
-        print(">> Soma P2 : " + str(SomaP2(valido_contagem_ecl,valido_contagem_pid,valido_contagem_eyr,valido_contagem_hcl,valido_contagem_byr,valido_contagem_iyr,valido_contagem_hgt)))
+        print(">> Soma P1 : " + str(SOMATORIO(contagem_ecl,contagem_pid,contagem_eyr,contagem_hcl,contagem_byr,contagem_iyr,contagem_hgt,contagem_cid)))
+        print(">> Soma P2 : " + str(SOMATORIO(valido_contagem_ecl,valido_contagem_pid,valido_contagem_eyr,valido_contagem_hcl,valido_contagem_byr,valido_contagem_iyr,valido_contagem_hgt)))
 
         if(valido_geral):
             validos_contagem+=1
@@ -367,12 +366,12 @@ def QualFalhouP2(contagem_ecl,contagem_pid,contagem_eyr,contagem_hcl,contagem_by
     return "DESCONHECIDO"
 
 
-def SomaP1(contagem_ecl,contagem_pid,contagem_eyr,contagem_hcl,contagem_byr,contagem_iyr,contagem_hgt,contagem_cid):
+def SOMATORIO(*contagens):
+    somatorio = 0
+    for item in contagens:
+        somatorio+=item
 
-    return (contagem_ecl+contagem_pid+contagem_eyr+contagem_hcl+contagem_byr+contagem_iyr+contagem_hgt+contagem_cid)
+    return somatorio
 
-def SomaP2(contagem_ecl,contagem_pid,contagem_eyr,contagem_hcl,contagem_byr,contagem_iyr,contagem_hgt):
-
-    return (contagem_ecl+contagem_pid+contagem_eyr+contagem_hcl+contagem_byr+contagem_iyr+contagem_hgt)
 
 main()
