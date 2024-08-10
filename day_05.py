@@ -57,6 +57,9 @@ def solucao(linhas):
     linhas_nao_vazias = obter_linhas_nao_vazias(linhas)
   
     seat_id_highest = 0
+    missings =0
+    seats = []
+
     
     for linha in linhas_nao_vazias:
 
@@ -137,11 +140,42 @@ def solucao(linhas):
         if(seat_id>seat_id_highest):
             seat_id_highest=seat_id
 
+        if(seat_id==-1):
+            missings+=1
+
+        seats.append(seat_id)
+
+    
+    
+
+
+    seat_id_smallest = seat_id_highest
+
+    for seat in seats:
+       if(seat<seat_id_smallest):
+           seat_id_smallest=seat
+
     
     print()
+    print("++ Menor SeatID = "+str(seat_id_smallest))
     print("++ Maior SeatID = "+str(seat_id_highest))
+    print()
+
+    seat_procurando = seat_id_smallest
+
+    while(seat_procurando<seat_id_highest):
+
+        existe = False
+        for seat in seats:
+            if(seat==seat_procurando):
+                existe=True
+                break
+
+        if(not existe):
+            print("-- Nao encontrado : "+str(seat_procurando))
 
 
+        seat_procurando+=1
 
 
 main()
