@@ -44,14 +44,18 @@ def obter_entradas(arquivo_caminho):
 
     return texto
 
-def solucao(linhas):
-
+def obter_linhas_nao_vazias(linhas):
     linhas_nao_vazias = []
     for linha in linhas:
         if(len(linha)>0):
             linhas_nao_vazias.append(linha)
+    return linhas_nao_vazias
 
 
+def solucao(linhas):
+
+    linhas_nao_vazias = obter_linhas_nao_vazias(linhas)
+  
     seat_id_highest = 0
     
     for linha in linhas_nao_vazias:
@@ -136,8 +140,6 @@ def solucao(linhas):
     
     print()
     print("++ Maior SeatID = "+str(seat_id_highest))
-
-
 
 
 
