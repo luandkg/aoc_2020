@@ -36,12 +36,12 @@ b"""
     print("")
     print(" + PROBLEMA EXTRA DA INTRODUÇÃO")
     print("")
-    #solucao_parte_extra(transformar_texto_em_entradas(entrada_texto))
+    solucao_parte_extra(transformar_texto_em_entradas(entrada_texto))
 
     print("")
     print(" + PROBLEMA EXTRA")
     print("")
-    #solucao_parte_extra(transformar_texto_em_entradas(obter_entradas("inputs/input_06.txt")))
+    solucao_parte_extra(transformar_texto_em_entradas(obter_entradas("inputs/input_06.txt")))
 
 
 def transformar_texto_em_entradas(entrada_texto):
@@ -110,6 +110,65 @@ def solucao(entradas):
         respostas_somatorio+=len(respostas_unicas)
     
     print("Respostas Somatorio : "+ str(respostas_somatorio))
+
+def solucao_parte_extra(entradas):
+
+    grupos = []
+    grupo_corrente = Grupo()
+
+    for entrada in entradas:
+        if entrada == "":
+            grupos.append(grupo_corrente)
+            grupo_corrente = Grupo()
+            print("-----")
+
+        else:
+            grupo_corrente.adicionar_participante(entrada)
+        print(entrada)
+
+    if len(grupo_corrente.get_participantes())>0:
+        grupos.append(grupo_corrente)
+
+    respostas_somatorio = 0
+    respostas_todos_somatorio=0
+
+    for grupo_id,grupo in enumerate(grupos):
+        print("Grupo :: "+ str(grupo_id+1) + " :: com "+ str(len(grupo.get_participantes())))
+
+        respostas_unicas = set()
+        respostas_unicas_todos = set()
+
+        for respostas in grupo.get_participantes():
+            print("\tParticipante : "+respostas)
+            for resposta in respostas:
+                respostas_unicas.add(resposta)
+
+        participantes_quantidade = len(grupo.get_participantes())
+        
+        for resposta_item in respostas_unicas:
+            todos_contando = 0
+            for participante in grupo.get_participantes():
+                participante_respondeu = False
+                for participante_resposta in participante:
+                    if participante_resposta == resposta_item:
+                        participante_respondeu = True
+                if participante_respondeu == True:
+                    todos_contando+=1
+
+            if todos_contando == participantes_quantidade:
+                respostas_unicas_todos.add(resposta_item)
+
+
+            #print("Unica : "+ resposta_item)
+
+        print("Respostas : "+ str(len(respostas_unicas)))
+        print("Respostas Todos : "+ str(len(respostas_unicas_todos)))
+
+        respostas_somatorio+=len(respostas_unicas)
+        respostas_todos_somatorio+=len(respostas_unicas_todos)
+
+    print("Respostas Somatorio : "+ str(respostas_somatorio))
+    print("Respostas Todos Somatorio : "+ str(respostas_todos_somatorio))
 
 
 main()
