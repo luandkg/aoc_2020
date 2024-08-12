@@ -3,6 +3,9 @@ def main():
     print("")
     print("---------- Advent of Code 03 --------------")
     print("")
+    print("EU : LUAN FREITAS - luandkg@gmail.com")
+    print("DATA : 2024 08 08")
+    print("")
 
     print(" + INTRODUÇÃO")
     print("")
