@@ -44,7 +44,7 @@ dark violet bags contain no other bags."""
     print("")
     print(" + PROBLEMA EXTRA")
     print("")
-    #solucao_parte_extra(transformar_texto_em_entradas(obter_entradas("inputs/input_07.txt")))
+    solucao_parte_extra(transformar_texto_em_entradas(obter_entradas("inputs/input_07.txt")))
 
 
 def transformar_texto_em_entradas(entrada_texto):
@@ -124,13 +124,15 @@ class BagagemInterna:
 
     def setNome(self,nome):
         self.nome=nome
+
     def getNome(self):
         return self.nome
     
     def setQuantidade(self,quantidade):
         self.quantidade=quantidade
+
     def getQuantidade(self):
-        return self.quantidade;
+        return self.quantidade
 
 def solucao(entradas):
 
@@ -152,10 +154,14 @@ def solucao(entradas):
                 #print(str(i) + " :: "+ palavra)
                 resto+=" "+palavra
                 if palavra == "bag," or palavra == "bags," or palavra == "bag." or palavra == "bags.":
-                    bagagem_interna = partes[i-2] + " " + partes[i-1]
-                    if(bagagem_interna == "no other"):
+                    bagagem_interna_nome = partes[i-2] + " " + partes[i-1]
+                    if(bagagem_interna_nome == "no other"):
                         bagagem_corrente.setVazia(True)
                     else:
+                        bagagem_interna = BagagemInterna()
+                        bagagem_interna.setNome(bagagem_interna_nome)
+                        bagagem_interna.setQuantidade(0)
+
                         bagagem_corrente.adicionar(bagagem_interna)
                         if bagagem_interna == "shiny gold":
                             bagagem_corrente.setShinyGold(True)
@@ -242,13 +248,13 @@ def shinigar(bagagens):
                     bagagem_localizada = False
                     
                     for procurando in bagagens:
-                        if procurando.getNome() == interno:
+                        if procurando.getNome() == interno.getNome():
                             bagagem_localizada=True
                             if procurando.isShinigado():
                                 verificados+=1
                                 if procurando.isShinyGold():
                                     bagagem.setShinyGold(True)
-                                    bagagem.shinigar(interno)
+                                    bagagem.shinigar(interno.getNome())
                                     break
                             elif not procurando.isShinigado():
                                 print("\t\t -- NAO SHINIGADO AINDA "+procurando.getNome())
@@ -259,7 +265,36 @@ def shinigar(bagagens):
                 if (len(bagagem.getInterno()) == verificados):
                     bagagem.shinigar("ZERADO")
 
+def contagem_bagagem_interno(nome,bagagens):
 
+    print("Contar :: "+nome)
+    somatorio = 0
+    for bagagem in bagagens:
+        if bagagem.getNome()==nome:
+            if(bagagem.isVazia()):
+                somatorio=0
+                print("++ Bagagem Vazia :: "+bagagem.getNome())
+            else:
+                for interno in bagagem.getInterno():
+                    print("++ Bagagem Interna :: "+interno.getNome())
+                    contagem_aqui=interno.getQuantidade()*contagem_bagagem_interno(interno.getNome(),bagagens)
+                    somatorio+=interno.getQuantidade()+contagem_aqui
+                    print("++ Bagagem Interna :: "+interno.getNome() + " * " + str(interno.getQuantidade()) + " == "+str(contagem_aqui))
+
+    print("-- Retornando :: "+str(somatorio))
+    return somatorio
+
+
+
+def contagem_bags(nome,bagagens):
+    somatorio = 0
+    for bagagem in bagagens:
+        if bagagem.getNome()==nome:
+            for interno in bagagem.getInterno():
+                somatorio+=interno.getQuantidade()+(interno.getQuantidade()*contagem_bagagem_interno(interno.getNome(),bagagens))
+
+    
+    return somatorio
 
 
 def solucao_parte_extra(entradas):
@@ -273,7 +308,6 @@ def solucao_parte_extra(entradas):
         bagagem_corrente = Bagagem()
         bagagens.append(bagagem_corrente)
 
-        print("@"+entrada)
         bagagem_corrente.setNome(partes[0] + " "+ partes[1])
 
         resto = ""
@@ -283,10 +317,15 @@ def solucao_parte_extra(entradas):
                 #print(str(i) + " :: "+ palavra)
                 resto+=" "+palavra
                 if palavra == "bag," or palavra == "bags," or palavra == "bag." or palavra == "bags.":
-                    bagagem_interna = partes[i-2] + " " + partes[i-1]
-                    if(bagagem_interna == "no other"):
+                    bagagem_interna_nome = partes[i-2] + " " + partes[i-1]
+                    if(bagagem_interna_nome == "no other"):
                         bagagem_corrente.setVazia(True)
                     else:
+
+                        bagagem_interna = BagagemInterna()
+                        bagagem_interna.setNome(bagagem_interna_nome)
+                        bagagem_interna.setQuantidade(int(partes[i-3]))
+                    
                         bagagem_corrente.adicionar(bagagem_interna)
                         if bagagem_interna == "shiny gold":
                             bagagem_corrente.setShinyGold(True)
@@ -302,7 +341,7 @@ def solucao_parte_extra(entradas):
             print("\t -- "+bagagem.getNome())
 
         for interno in bagagem.getInterno():
-            print("\t\t + "+interno)
+            print("\t\t + "+interno.getNome() + " :: " + str(interno.getQuantidade()))
 
     visualizar_geral(bagagens)
     shinigar_completamente(bagagens)
@@ -314,7 +353,8 @@ def solucao_parte_extra(entradas):
             contagem_shiny_gold+=1
 
     print()
-    print("ShinyGold = "+str(contagem_shiny_gold))
+    contagem_bags_valor = contagem_bags("shiny gold",bagagens)
+    print("ShinyGold = "+str(contagem_bags_valor) + " bags")
 
 
 
