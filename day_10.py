@@ -239,6 +239,7 @@ def solucao_parte_extra(entradas):
     respostas[0] = 1
     for corrente in correntes:
         respostas[corrente] = respostas.get(corrente - 1, 0) + respostas.get(corrente - 2, 0) + respostas.get(corrente - 3, 0)
+        print("\t -- Comb (" + str(corrente) + ") = " + str(respostas[corrente]))
 
     print("Combinacoes = " + str(respostas[correntes[-1]]))
 
