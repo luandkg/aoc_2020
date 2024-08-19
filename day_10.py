@@ -194,6 +194,8 @@ def solucao_parte_extra(entradas):
     maior = maior +3
     #correntes.append(maior)
 
+    ## METODO LENTO
+
     maximo_sequenciador = len(correntes)
 
     correntes.sort()
@@ -223,11 +225,13 @@ def solucao_parte_extra(entradas):
         print("(" + str(sequencia) + ")", end = " ")
         print(" -> (" + str(carragemento) + ")", end = " ")
 
-        print("")
+        print()
 
         if not int(sequencia[0]) in primeiros:
             primeiros.append(int(sequencia[0]))
 
+
+    # METODO ULTRA RAPIDO
     print("")
     print("Conjunto = " + str(correntes))
     print("Tamanho = " + str(len(correntes)))
@@ -241,6 +245,7 @@ def solucao_parte_extra(entradas):
         respostas[corrente] = respostas.get(corrente - 1, 0) + respostas.get(corrente - 2, 0) + respostas.get(corrente - 3, 0)
         print("\t -- Comb (" + str(corrente) + ") = " + str(respostas[corrente]))
 
+    print()
     print("Combinacoes = " + str(respostas[correntes[-1]]))
 
     
