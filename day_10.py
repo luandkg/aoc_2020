@@ -235,19 +235,13 @@ def solucao_parte_extra(entradas):
     correntes.sort()
     correntes = correntes + [max(correntes) + 3]
 
-    ans = {}
-    ans[0] = 1
-    for a in correntes:
-        ans[a] = ans.get(a - 1, 0) + ans.get(a - 2, 0) + ans.get(a - 3, 0)
+    respostas = {}
+    respostas[0] = 1
+    for corrente in correntes:
+        respostas[corrente] = respostas.get(corrente - 1, 0) + respostas.get(corrente - 2, 0) + respostas.get(corrente - 3, 0)
 
-    print(str({ans[correntes[-1]]}))
+    print("Combinacoes = " + str(respostas[correntes[-1]]))
 
-
-
-
-
-
-  
     
 
 def interno(correntes,valor_aqui,sequencia,sequencias,carregamento,maximo_sequenciador):
