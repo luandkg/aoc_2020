@@ -3,13 +3,13 @@ from random import shuffle
 
 def main():
 
-    ADVENTURE_PROJETO = "2020"
-    ADVENTURE_OF_CODE = "09"
+    ADVENT_PROJETO = "2020"
+    ADVENT_OF_CODE = "09"
     DATA_DA_RESOLUCAO = "2024 08 17"
 
 
     print("")
-    print("---------- Advent of Code " + ADVENTURE_OF_CODE + " --------------")
+    print("---------- Advent of Code " + ADVENT_OF_CODE + " --------------")
     print("")
     print("EU : LUAN FREITAS - luandkg@gmail.com")
     print("DATA : "+DATA_DA_RESOLUCAO)
@@ -26,7 +26,7 @@ def main():
     print("")
     print(" + PROBLEMA")
     print("")
-    solucao(transformar_texto_em_entradas(obter_entradas("inputs/input_" + ADVENTURE_OF_CODE + ".txt")))
+    solucao(transformar_texto_em_entradas(obter_entradas("inputs/input_" + ADVENT_OF_CODE + ".txt")))
 
 
     print("")
@@ -40,7 +40,7 @@ def main():
     print("")
     print(" + PROBLEMA EXTRA")
     print("")
-    solucao_parte_extra(transformar_texto_em_entradas(obter_entradas("inputs/input_" + ADVENTURE_OF_CODE + ".txt")))
+    solucao_parte_extra(transformar_texto_em_entradas(obter_entradas("inputs/input_" + ADVENT_OF_CODE + ".txt")))
 
 
 def transformar_texto_em_entradas(entrada_texto):
