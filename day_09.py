@@ -225,12 +225,6 @@ def solucao_parte_extra(entradas):
         print("\t - Espaco Somatorio :: " + str(xmas_corrompido_espacado_menor+xmas_corrompido_espacado_maior))
 
 
-
-
-        
-
-    
-
 def somar_lista(numeros):
     somatorio = 0
     for numero in numeros:
