@@ -21,7 +21,7 @@ def main():
     print("")
     print(" + PROBLEMA")
     print("")
-    #solucao(transformar_texto_em_entradas(obter_entradas("inputs/input_" + ADVENTURE_OF_CODE + ".txt")))
+    #solucao(transformar_texto_em_entradas(obter_entradas("inputs/input_" + ADVENT_OF_CODE + ".txt")))
 
 
     print("")
@@ -30,12 +30,12 @@ def main():
 
     entrada_texto =""""""
 
-    solucao_parte_extra(transformar_texto_em_entradas(entrada_texto))
+    #solucao_parte_extra(transformar_texto_em_entradas(entrada_texto))
 
     print("")
     print(" + PROBLEMA EXTRA")
     print("")
-    solucao_parte_extra(transformar_texto_em_entradas(obter_entradas("inputs/input_" + ADVENT_OF_CODE + ".txt")))
+    #solucao_parte_extra(transformar_texto_em_entradas(obter_entradas("inputs/input_" + ADVENT_OF_CODE + ".txt")))
 
 
 def transformar_texto_em_entradas(entrada_texto):
