@@ -29,14 +29,15 @@ def main():
     print(" + PROBLEMA EXTRA DA INTRODUÇÃO")
     print("")
 
-    entrada_texto =""""""
+    entrada_texto ="""939
+7,13,x,x,59,x,31,19"""
 
-    #solucao_parte_extra(transformar_texto_em_entradas(entrada_texto))
+    solucao_parte_extra(transformar_texto_em_entradas(entrada_texto))
 
     print("")
     print(" + PROBLEMA EXTRA")
     print("")
-    #solucao_parte_extra(transformar_texto_em_entradas(obter_entradas("inputs/input_" + ADVENT_OF_CODE + ".txt")))
+    solucao_parte_extra(transformar_texto_em_entradas(obter_entradas("inputs/input_" + ADVENT_OF_CODE + ".txt")))
 
 
 def transformar_texto_em_entradas(entrada_texto):
@@ -172,7 +173,10 @@ def solucao(entradas):
     
 
 def solucao_parte_extra(entradas):
-    pass
+    
+    solucao_lenta(entradas)
+
+    solucao_rapida(entradas)
 
 
 def espacar(s,tamanho):
@@ -180,5 +184,165 @@ def espacar(s,tamanho):
         s=s+" "
     
     return s
+
+def pontuar(valor):
+    s_valor = str(valor)
+
+    s_organizando = ""
+
+    o = len(s_valor)-1
+    i = 0
+    
+    while o>=0:
+        letra = s_valor[o]
+        s_organizando = letra + s_organizando
+        if i == 2:
+            if o>0:
+                s_organizando= "." + s_organizando
+            i=-1
+
+        o-=1
+        i+=1
+
+    return s_organizando
+
+def calcular(pairs):
+    M = 1
+    for x, mx in pairs:
+        M *= mx
+    total = 0
+    for x, mx in pairs:
+        b = M // mx
+        total += x * b * pow(b, mx-2, mx)
+        total %= M
+    return total
+
+def solucao_rapida(entradas):
+
+    print("----------------------------------------")
+    print()
+    iniciar = int(entradas[0])
+    pares = []
+    todos = []
+
+    for i, n in enumerate(entradas[1].split(',')):
+        todos.append(n)
+        if n == 'x':
+            continue
+        n = int(n)
+
+        pares.append((n - i, n))
+
+    print("Valor : " + str(calcular(pares) ))
+
+def solucao_lenta(entradas):
+    
+    linha_completa = entradas[1]
+
+    linhas = []
+    desconhecidos = []
+
+    posicao = 0
+    todos = []
+
+    for linha in linha_completa.split(","):
+        if(not linha == "x"):
+            linhas.append(int(linha))
+        elif linha == "x":
+            desconhecidos.append(posicao)
+        todos.append((linha,0))
+        posicao+=1
+
+
+    print("------------------------------------------------------------------------------")
+    print("Onibus")
+    
+    primeiro_itinerario = linhas[0]
+
+    tempo_geral = 1_000_000_000
+    tempo_geral = 10
+    tempo_corrente = 0
+    valor_final=0
+
+    while tempo_corrente < tempo_geral:
+
+        print("------------------------")
+        print("Tempo      :: " + str(tempo_corrente))
+
+        copia_alterar = []
+        valor_inicialmente = 0
+
+        for item_indice,item in enumerate(todos):
+
+            if item_indice == 0 :
+                valor_proximo = int(item[0])*tempo_corrente
+                valor_inicialmente = valor_proximo
+            else:
+                valor_proximo = 0
+                if not item[0] == "x" :
+                    acc = 0
+                    while acc<=valor_inicialmente:
+                        acc+=int(item[0])
+                    valor_proximo = acc
+
+            copia_alterar.append([item[0],valor_proximo])
+
+
+
+        valor_inicial = copia_alterar[0][1]
+
+        copia_identificando = []
+
+        valido = True
+        for item in copia_alterar:
+
+            status_local = False
+
+            if item[0] == "x":
+                status_local = True
+                copia_identificando.append((item[0],valor_inicial,status_local))
+            else:
+                status_local =  True if item[1] == valor_inicial else False
+                copia_identificando.append((item[0],item[1],status_local))
+                        
+                    
+            valor_inicial+=1
+
+            if  status_local:
+                valor_final = copia_identificando[len(copia_identificando)-1][1]
+            else:
+                valido=False
+
+
+
+        proximo = copia_identificando[0][1]
+
+        validos = 0
+        for item in copia_identificando:
+            print("\t ++ Item = ",str(item))
+            if item[1] == proximo:
+                validos+=1
+            proximo+=1
+
+        print("Validos        = " + str(validos))
+        print("Valor Corrente = " + str(copia_identificando[len(copia_identificando)-1][1]))
+
+        if validos == len(copia_identificando):
+            break
+
+        ultimo = copia_identificando[len(copia_identificando)-1][1]
+
+        print("------------------------")
+        print("Ultimo :: " + str(ultimo) + " :: " + pontuar(ultimo))
+        valor_final = ultimo
+
+        if ultimo >= 1068788:
+            break
+
+        tempo_corrente+=1
+
+
+
+    print("Valor Final : " + str(valor_final))
 
 main()
