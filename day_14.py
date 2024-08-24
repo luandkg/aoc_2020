@@ -25,7 +25,7 @@ mem[8] = 0"""
     print("")
     print(" + PROBLEMA")
     print("")
-    #solucao(transformar_texto_em_entradas(obter_entradas("inputs/input_" + ADVENT_OF_CODE + ".txt")))
+    solucao(transformar_texto_em_entradas(obter_entradas("inputs/input_" + ADVENT_OF_CODE + ".txt")))
 
 
     print("")
@@ -92,6 +92,7 @@ def solucao(entradas):
 
     memoria_corrente = None
 
+
     for entrada in entradas:
         #print(entrada)
 
@@ -111,6 +112,8 @@ def solucao(entradas):
     for memoria in memorias:
         print("++ Memoria : " + memoria.getMascara())
 
+        somatorio_geral = 0
+
         print()
         for item in memoria.getValores():
             print("\t    - " + str(item.getPosicao()) + " :: " + str(item.getValor()))
@@ -122,6 +125,8 @@ def solucao(entradas):
         print()
         print("\t -->> Memoria     : " + memoria_inicializada)
         print()
+
+        somatorio = 0
 
         for item in memoria.getValores():
 
@@ -142,6 +147,17 @@ def solucao(entradas):
             print("\t -->> Memoria     : " + memoria_inicializada + " (decimal " + str(mem_retorno) + ")")
             print()
 
+            somatorio+=valor_retorno
+
+    
+        print("Somatorio = " + str(somatorio))
+        somatorio_geral+=somatorio
+
+    print("Somatorio Geral = " + str(somatorio_geral))
+
+
+
+    
 
 def binario(valor):
 
