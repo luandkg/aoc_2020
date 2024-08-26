@@ -29,14 +29,14 @@ def main():
     print(" + PROBLEMA EXTRA DA INTRODUÇÃO")
     print("")
 
-    entrada_texto =""""""
-
-    #solucao_parte_extra(transformar_texto_em_entradas(entrada_texto))
+    entrada_texto ="""3,2,1"""
+    solucao_parte_extra(transformar_texto_em_entradas(entrada_texto))
 
     print("")
     print(" + PROBLEMA EXTRA")
     print("")
-    #solucao_parte_extra(transformar_texto_em_entradas(obter_entradas("inputs/input_" + ADVENT_OF_CODE + ".txt")))
+    entrada_texto = """2,0,1,9,5,19"""
+    solucao_parte_extra(transformar_texto_em_entradas(entrada_texto))
 
 
 def transformar_texto_em_entradas(entrada_texto):
@@ -121,12 +121,36 @@ def solucao(entradas):
         if rodada -1 > ate:
             valores.append(numero_corrente)
 
-
-       
-        
+from collections import defaultdict, deque
 
 def solucao_parte_extra(entradas):
-    pass
+
+    rodada_parar = 30000000
+    #rodada_parar = 2020
+
+    from collections import defaultdict, deque
+
+    valores = []
+    for entrada in entradas[0].split(","):
+        valores.append(int(entrada))
+
+    exibir =0
+    valores_indexados, ultimo = defaultdict(lambda: deque([],maxlen=2)), valores[-1]
+    for i in range(1,len(valores)+1): valores_indexados[valores[i-1]].append(i)
+    for i in range(i+1,rodada_parar+1):
+        if len(valores_indexados[ultimo])<2: ultimo = 0
+        else: ultimo = valores_indexados[ultimo][-1]-valores_indexados[ultimo][-2]
+        valores_indexados[ultimo].append(i)
+
+        exibir +=1
+        if exibir == 1000:
+            exibir = 0
+            print("\t ++ Valor indexado " + str(ultimo) + " = " + str(i))
+
+    print("Valor " + str(rodada_parar) + " = " +str(ultimo))
+        
+
+
 
 
 main()
